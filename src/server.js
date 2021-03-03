@@ -1,17 +1,18 @@
 const express = require('express');
-const path = require('path');
+const bodyParser = require('body-parser');
 const app = express();
 
-//Other Settings 
-// app.use(express.static(path.join(__dirname, 'public')));
-// console.log(path.join(__dirname, '/public'));
+
+
+//Midleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 //Endpoints
-app.use('/', require('./routes/index.js'));
-
+app.use('/', require('./routes/root/index.js'));
 
 //Get the port form the environment or set it to 8000
-port = process.env.NODE_ENV || 8000
+const port = process.env.NODE_ENV || 8000
 
 app.listen(port, function(){
     console.log(`Listening on port ${port}!`);
