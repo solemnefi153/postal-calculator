@@ -1,10 +1,19 @@
 const express = require('express');
+const calculateRate = require('../../utils/calculateRate')
 const router = express.Router()
-const path = require('path');
+
 
 router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../public/views/index.html'));
+    res.render('index');
 });
+
+router.post('/getrates', (req, res) => {
+    const weight = parseFloat(req.body.weight);
+    const mailType = req.body.mailType
+    const rate = calculateRate(weight, mailType);
+    res.render('results', { weight: weight,  mailType: mailType,  rate: rate});
+});
+
 
 module.exports = router;
 
